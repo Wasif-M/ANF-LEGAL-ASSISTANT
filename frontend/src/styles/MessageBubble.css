@@ -1,0 +1,658 @@
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.message-bubble {
+  display: flex !important;
+  gap: 16px;
+  padding: 12px 16px;
+  max-width: 90%;
+  margin: 16px 0;
+  width: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.message-bubble.user {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  flex-direction: row;
+  justify-content: flex-end;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.message-bubble.assistant {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.message-avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.message-bubble.user .message-avatar {
+  background: linear-gradient(135deg, #064e3b, #047857);
+  color: white;
+  order: 2;
+  margin-left: 8px;
+}
+
+.message-bubble.assistant .message-avatar {
+  background: linear-gradient(135deg, #059669, #34d399);
+  color: white;
+  order: 0;
+  margin-right: 8px;
+}
+
+.message-content {
+  display: flex !important;
+  flex-direction: column;
+  order: 1;
+  max-width: calc(100% - 40px);
+}
+
+.message-text {
+  padding: 13px 17px;
+  border-radius: 16px;
+  word-wrap: break-word;
+  line-height: 1.55;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  display: block !important;
+}
+
+.message-bubble.user .message-text {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: #ffffff !important;
+  border-bottom-right-radius: 5px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.message-bubble.assistant .message-text {
+  background-color: var(--message-assistant-bg) !important;
+  color: var(--message-assistant-text) !important;
+  border-bottom-left-radius: 5px;
+  border: 1px solid var(--border);
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.message-bubble.error .message-text {
+  background-color: rgba(220, 38, 38, 0.08) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+/* Markdown styling */
+.message-text p {
+  margin: 0;
+}
+
+.message-text p + p {
+  margin-top: 8px;
+}
+
+.message-text strong {
+  font-weight: 600;
+}
+
+.message-text em {
+  font-style: italic;
+}
+
+/* Headings (assistant answers) */
+.markdown-heading {
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 20px 0 10px;
+  color: var(--accent-dark);
+  letter-spacing: -0.01em;
+}
+
+.markdown-heading:first-child {
+  margin-top: 0;
+}
+
+.markdown-h1 {
+  font-size: 1.4rem;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 7px;
+}
+
+/* h2 = the main section heading: a tinted, accent-barred pill so each section
+   stands out clearly in a multi-heading answer */
+.markdown-h2 {
+  font-size: 1.18rem;
+  border-left: 5px solid var(--accent);
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
+  padding: 7px 12px;
+  border-radius: 0 8px 8px 0;
+}
+
+.markdown-h3 {
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: var(--accent-hover);
+  border-left: 3px solid var(--accent-light);
+  padding-left: 9px;
+}
+
+.message-bubble.user .markdown-heading {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.message-bubble.user .markdown-h2 {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.message-bubble.user .markdown-h3 {
+  color: #ffffff;
+}
+
+/* RTL (Urdu): mirror the accent bar to the right side */
+.message-text.urdu-text .markdown-h2 {
+  border-left: none;
+  border-right: 5px solid var(--accent);
+  background: linear-gradient(270deg, var(--accent-soft), transparent);
+  border-radius: 8px 0 0 8px;
+  padding: 8px 12px;
+}
+
+.message-text.urdu-text .markdown-h3 {
+  border-left: none;
+  border-right: 3px solid var(--accent-light);
+  padding-left: 0;
+  padding-right: 9px;
+}
+
+.inline-code {
+  background-color: var(--accent-soft);
+  color: var(--accent-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.message-bubble.user .inline-code {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.code-block {
+  background-color: rgba(6, 78, 59, 0.07);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+[data-theme='dark'] .code-block {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.code-block code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.markdown-list {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.markdown-quote {
+  border-left: 4px solid var(--accent);
+  background-color: var(--accent-soft);
+  margin: 10px 0;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--primary-text);
+}
+
+.markdown-quote p {
+  margin: 0;
+}
+
+.markdown-quote p + p {
+  margin-top: 6px;
+}
+
+.message-bubble.user .markdown-quote {
+  border-left-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.markdown-link {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.message-bubble.assistant .markdown-link {
+  color: var(--accent);
+}
+
+/* Horizontal rule / section divider */
+.markdown-hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 18px 0;
+}
+
+.message-bubble.user .markdown-hr {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* ─── Tables (comparison / structured answers) ─── */
+.markdown-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 14px 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  -webkit-overflow-scrolling: touch;
+}
+
+.markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  background: var(--message-assistant-bg);
+}
+
+.markdown-thead {
+  background: var(--accent-soft);
+}
+
+.markdown-th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent-dark);
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--accent);
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.markdown-td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--message-assistant-text);
+}
+
+.markdown-td:last-child,
+.markdown-th:last-child {
+  border-right: none;
+}
+
+/* First column reads as a row label in comparison tables */
+.markdown-table tbody tr td:first-child {
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: var(--accent-soft);
+  white-space: nowrap;
+}
+
+.markdown-table tbody tr:last-child .markdown-td {
+  border-bottom: none;
+}
+
+.markdown-table tbody tr:nth-child(even) td:not(:first-child) {
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.markdown-table tbody tr:hover td {
+  background: rgba(16, 185, 129, 0.07);
+}
+
+/* Keep long structured answers readable */
+.message-text > :first-child {
+  margin-top: 0;
+}
+
+.message-text > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .markdown-table {
+    font-size: 0.8rem;
+  }
+
+  .markdown-th,
+  .markdown-td {
+    padding: 8px 10px;
+  }
+
+  /* On narrow screens, let label cells wrap instead of forcing scroll */
+  .markdown-table tbody tr td:first-child {
+    white-space: normal;
+  }
+}
+
+/* Sources */
+.message-sources {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.message-bubble.user .message-sources {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.sources-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.sources-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.source-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  background-color: var(--accent-soft);
+  color: var(--accent-hover);
+  border-radius: 12px;
+  font-size: 0.7rem;
+}
+
+.message-bubble.user .source-tag {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Message footer (rating + time) */
+.message-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.message-bubble.user .message-footer {
+  justify-content: flex-end;
+}
+
+/* ─── 5-star response rating ─── */
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.star-rating-label {
+  font-size: 0.72rem;
+  color: var(--secondary-text);
+  white-space: nowrap;
+}
+
+.star-rating-stars {
+  display: flex;
+  gap: 1px;
+}
+
+.star-btn {
+  padding: 2px;
+  background: transparent;
+  color: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-btn:hover {
+  transform: scale(1.18);
+}
+
+.star-btn.filled {
+  color: #f59e0b;
+}
+
+.star-btn.filled.previewing {
+  color: #fbbf24;
+}
+
+/* Message time */
+.message-time {
+  font-size: 0.7rem;
+  color: var(--secondary-text);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.message-bubble.user .message-time {
+  text-align: right;
+}
+
+/* Loading state */
+.message-bubble.loading .message-text {
+  padding: 12px 16px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .message-content {
+    max-width: 85%;
+  }
+
+  .message-bubble.user .message-content {
+    max-width: 85%;
+  }
+
+  .message-text {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+}
+
+/* ─── Thinking indicator ─── */
+
+.thinking-block {
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 0.82rem;
+  color: var(--secondary-text);
+}
+
+.thinking-block.active {
+  animation: thinkingPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes thinkingPulse {
+  0%, 100% { border-color: rgba(16, 185, 129, 0.2); }
+  50% { border-color: rgba(5, 150, 105, 0.55); }
+}
+
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.thinking-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 185, 129, 0.25);
+  border-top-color: var(--accent);
+  animation: thinkingSpin 0.8s linear infinite;
+}
+
+@keyframes thinkingSpin {
+  to { transform: rotate(360deg); }
+}
+
+.thinking-steps {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.thinking-steps li {
+  position: relative;
+  padding: 2px 0;
+  line-height: 1.4;
+}
+
+.thinking-steps li::before {
+  content: "✓";
+  position: absolute;
+  left: -16px;
+  color: var(--accent-light);
+  font-size: 0.75rem;
+}
+
+.thinking-steps li.current::before {
+  content: "•";
+  color: var(--accent);
+  animation: thinkingPulse 1s ease-in-out infinite;
+}
+
+.thinking-block.collapsed summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--secondary-text);
+  user-select: none;
+}
+
+.thinking-block.collapsed summary:hover {
+  color: var(--accent);
+}
+
+/* ─── Urdu (RTL) answer rendering ─── */
+.message-text.urdu-text {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+  line-height: 2.35;
+  font-size: 1.02rem;
+}
+
+.message-text.urdu-text .markdown-heading,
+.message-text.urdu-text p,
+.message-text.urdu-text li {
+  text-align: right;
+}
+
+/* Keep verbatim English statute quotes left-to-right inside an Urdu answer */
+.message-text.urdu-text blockquote.markdown-quote {
+  direction: ltr;
+  text-align: left;
+  font-family: inherit;
+}
+
+.message-text.urdu-text .markdown-list {
+  padding-right: 1.4em;
+  padding-left: 0;
+}
+
+/* ─── "Listen" (text-to-speech) button ─── */
+.speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.speak-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+}
+
+.speak-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.speak-btn.playing {
+  background: var(--accent);
+  color: #fff;
+}
+
+.speak-btn-label {
+  line-height: 1;
+}
+
+.speak-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--accent-soft);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: speak-spin 0.7s linear infinite;
+}
+
+@keyframes speak-spin {
+  to { transform: rotate(360deg); }
+}
